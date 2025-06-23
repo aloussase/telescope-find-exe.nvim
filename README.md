@@ -26,6 +26,12 @@ require('telescope').load_extension('find_exe')
 
 You can choose in which directory to search:
 
-```lua
+```vim
 Telescope find_exe dir=./build
+```
+
+You can also use the `execute` flag to run the executable in a floating winow:
+
+```vim
+Telescope find_exe dir=./build execute=true
 ```
