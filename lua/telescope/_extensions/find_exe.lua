@@ -4,21 +4,14 @@ local conf = require("telescope.config").values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
---- @class Opts
---- @field dir string Directory where to search for executable files.
+local Opts = require("find_exe.opts")
 
----@param opts Opts
----@return Opts
-local function parse_opts(opts)
-  local o = opts or {}
-  o.dir = opts.dir or "."
-  return o
-end
+-- TODO: Add option to run executable.
 
 --- Find executable files in a given directory.
 ---@param opts Opts
 local function find_exe(opts)
-  opts = parse_opts(opts)
+  opts = Opts.parse_opts(opts)
   pickers.new(opts, {
     prompt_title = "Find Executable Files in Current Directory",
     finder = finders.new_oneshot_job({ "find", opts.dir, "-type", "f", "-executable" }, {}),
