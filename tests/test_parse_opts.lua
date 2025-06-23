@@ -38,4 +38,14 @@ T['should respect user set executable flag'] = function()
   MiniTest.expect.equality(parsed, expected)
 end
 
+T['should reject unexpected fields'] = function()
+  -- Arrange
+  local t = { color = "red" }
+
+  -- Act & Assert
+  MiniTest.expect.error(function()
+    Opts.parse_opts(t)
+  end, "Unexpected field 'color' in options table")
+end
+
 return T

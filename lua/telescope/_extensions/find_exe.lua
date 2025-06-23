@@ -5,8 +5,7 @@ local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
 local Opts = require("find_exe.opts")
-
--- TODO: Add option to run executable.
+local ui = require("find_exe.ui")
 
 --- Find executable files in a given directory.
 ---@param opts Opts
@@ -20,7 +19,12 @@ local function find_exe(opts)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        vim.fn.setreg("@", selection.value)
+        if opts.execute then
+          local _win = ui.open_float()
+          vim.fn.termopen({ selection.value })
+        else
+          vim.fn.setreg("@", selection.value)
+        end
       end)
       return true
     end,
